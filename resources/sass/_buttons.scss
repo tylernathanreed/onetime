@@ -1,0 +1,51 @@
+.btn {
+    @apply inline-block text-center align-middle select-none px-3 py-1 leading-normal rounded transition-colors;
+}
+
+.btn-primary {
+    @apply text-white bg-blue-600;
+
+    &:hover {
+        @apply bg-blue-700;
+    }
+
+    &:focus, &:active {
+        @apply bg-blue-800;
+    }
+}
+
+.btn-success {
+    @apply text-white bg-green-600;
+
+    &:hover {
+        @apply bg-green-700;
+    }
+
+    &:focus, &:active {
+        @apply bg-green-800;
+    }
+}
+
+.btn-warning {
+    @apply text-white bg-yellow-600;
+
+    &:hover {
+        @apply bg-yellow-700;
+    }
+
+    &:focus, &:active {
+        @apply bg-yellow-800;
+    }
+}
+
+.btn-danger {
+    @apply text-white bg-red-600;
+
+    &:hover {
+        @apply bg-red-700;
+    }
+
+    &:focus, &:active {
+        @apply bg-red-800;
+    }
+}
