@@ -5,11 +5,11 @@
         @csrf
         <div class="form-group">
             <label for="secret">What's your secret?</label>
-            <textarea name="secret" rows="5" class="form-control" maxlength="{{ App\Models\Secret::MAX_LENGTH }}" required></textarea>
+            <textarea id="secret" name="secret" rows="5" class="form-control" maxlength="{{ App\Models\Secret::MAX_LENGTH }}" required></textarea>
         </div>
         <div class="form-group">
             <label for="expires">When should it expire?</label>
-            <select name="expires" class="form-control" required>
+            <select id="expires" name="expires" class="form-control" required>
                 <option value="+1 hour">In 1 Hour</option>
                 <option value="+2 hours">In 2 Hours</option>
                 <option value="+4 hours">In 4 Hours</option>
