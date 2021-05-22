@@ -1,31 +1,37 @@
+// xs
 .container {
     width: 100%;
 }
 
+// sm
 @media (min-width: 576px) {
     .container {
         max-width: 540px;
     }
 }
 
+// md
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
     }
 }
 
+// lg
 @media (min-width: 992px) {
     .container {
         max-width: 960px;
     }
 }
 
+// xl
 @media (min-width: 1200px) {
     .container {
         max-width: 1140px;
     }
 }
 
+// 2xl
 @media (min-width: 1400px) {
     .container {
         max-width: 1320px;

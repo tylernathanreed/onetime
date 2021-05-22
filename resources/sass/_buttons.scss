@@ -1,5 +1,9 @@
 .btn {
     @apply inline-block text-center align-middle select-none px-3 py-1 leading-normal rounded transition-colors;
+
+    @media (max-width: 991px) {
+        @apply block w-full mb-2;
+    }
 }
 
 .btn-primary {
