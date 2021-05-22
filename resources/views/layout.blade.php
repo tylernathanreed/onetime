@@ -1,12 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
         <title>@yield('title', config('app.name'))</title>
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <meta name="author" content="Tyler Reed"/>
+        <meta name="description" content="Create and share one-time secrets"/>
+        <meta name="keywords" content="Laravel, Onetime, One, Time, Secret"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="theme-color" content="#1f2937">
+        <meta charset="UTF-8"/>
+
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
     </head>
     <body class="bg-gray-800 text-white">
         <main role="main" class="container mx-auto px-4">
