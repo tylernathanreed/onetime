@@ -21,7 +21,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">
-            @include('icons.check') Get Your Secret URL
+            @include('icons.check') Get your Secret URL
         </button>
     </form>
 @endsection
