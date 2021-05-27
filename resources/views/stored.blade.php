@@ -3,7 +3,7 @@
 @section('content')
     <div class="form-group">
         <label for="secret">Here's your URL:</label>
-        <input type="text" name="url" id="url" value="{{ route('show', $secret) }}" class="form-control font-monospace">
+        <input type="text" name="url" id="url" value="{{ route('show', $secret) }}" class="form-control font-monospace" readonly>
     </div>
     <p>
         <button type="button" class="btn btn-success" onclick="copyText('url')">
