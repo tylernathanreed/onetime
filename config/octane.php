@@ -1,5 +1,6 @@
 <?php
 
+use App\Foundation\Octane as Foundation;
 use Laravel\Octane\Contracts\OperationTerminated;
 use Laravel\Octane\Events\RequestHandled;
 use Laravel\Octane\Events\RequestReceived;
@@ -64,8 +65,8 @@ return [
         ],
 
         RequestReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
-            ...Octane::prepareApplicationForNextRequest(),
+            ...Foundation::prepareApplicationForNextOperation(),
+            ...Foundation::prepareApplicationForNextRequest(),
             //
         ],
 
@@ -78,12 +79,12 @@ return [
         ],
 
         TaskReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
+            ...Foundation::prepareApplicationForNextOperation(),
             //
         ],
 
         TickReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
+            ...Foundation::prepareApplicationForNextOperation(),
             //
         ],
 
@@ -115,7 +116,7 @@ return [
     */
 
     'warm' => [
-        ...Octane::defaultServicesToWarm(),
+        ...Foundation::defaultServicesToWarm(),
     ],
 
     'flush' => [
