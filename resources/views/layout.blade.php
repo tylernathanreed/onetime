@@ -32,7 +32,7 @@
             </div>
         </main>
         <div class="fixed bottom-0 text-center p-3 w-full">
-            <?php $start = request()->server('REQUEST_START_TIME') ?? LARAVEL_START; ?>
+            <?php $start = request()->server('REQUEST_START_TIME') ?: LARAVEL_START; ?>
             <small class="text-gray-500">This page served in {{ number_format((microtime(true) - $start) * 1000, 2) }}ms.</small>
         </div>
         <script type="text/javascript">
