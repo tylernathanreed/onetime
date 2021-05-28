@@ -32,7 +32,8 @@
             </div>
         </main>
         <div class="fixed bottom-0 text-center p-3 w-full">
-            <small class="text-gray-500">This page served in {{ number_format((microtime(true) - LARAVEL_START) * 1000, 2) }}ms.</small>
+            <?php $start = $_SERVER['REQUEST_TIME_FLOAT'] ?? LARAVEL_START; ?>
+            <small class="text-gray-500">This page served in {{ number_format((microtime(true) - $start) * 1000, 2) }}ms.</small>
         </div>
         <script type="text/javascript">
             function copyText(elementId) {
