@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Foundation;
+namespace App\Foundation\Octane;
 
 class Octane
 {
@@ -12,6 +12,7 @@ class Octane
     public static function prepareApplicationForNextRequest(): array
     {
         return [
+            \App\Foundation\Octane\Listeners\DefineLaravelStartConstant::class,
             \Laravel\Octane\Listeners\FlushLocaleState::class,
             // \Laravel\Octane\Listeners\FlushQueuedCookies::class,
             \Laravel\Octane\Listeners\FlushSessionState::class,
