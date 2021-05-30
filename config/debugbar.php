@@ -9,7 +9,7 @@ return [
         'memory'          => true,  // Memory usage
         'exceptions'      => false,  // Exception displayer
         'log'             => false,  // Logs from Monolog (merged in messages if enabled)
-        'db'              => true,  // Show database (PDO) queries and bindings
+        'db'              => false,  // Show database (PDO) queries and bindings
         'views'           => false,  // Views with their data
         'route'           => false,  // Current route information
         'auth'            => false, // Display Laravel authentication status

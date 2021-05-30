@@ -2,4 +2,4 @@
 
 @section('title', __('Not Found'))
 @section('code', '404')
-@section('message', __('Not Found'))
+@section('message', isset($exception) && !empty($exception->getMessage()) ? $exception->getMessage() : __('Not Found'))

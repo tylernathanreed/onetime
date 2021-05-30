@@ -2,14 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Secret;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\Secrets\Contracts\Factory as SecretFactory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class SecretController extends Controller
 {
+    /**
+     * The secret factory implementation.
+     *
+     * @var \App\Services\Secrets\Contracts\Factory
+     */
+    protected $secrets;
+
+    /**
+     * Creates a new controller instance.
+     *
+     * @param  \App\Services\Secrets\Contracts\Factory  $secrets
+     *
+     * @return $this
+     */
+    public function __construct(SecretFactory $secrets)
+    {
+        $this->secrets = $secrets;
+    }
+
     /**
      * Show the form for creating a secret.
      *
@@ -31,18 +47,14 @@ class SecretController extends Controller
     {
         // Validate the request
         $this->validate($request, [
-            'secret' => 'required|string|max:' . Secret::MAX_LENGTH
+            'secret' => 'required|string|max:' . $this->secrets->byteLimit(),
+            'expires_at' => 'nullable|string'
         ]);
 
-        // Create a new secret
-        $secret = new Secret;
-        $secret->slug = substr(Str::slug(Str::random(48)), 0, 32);
-        $secret->secret = encrypt($request->secret);
-        $secret->expires_at = $request->expires ? Carbon::parse($request->expires) : null;
-        $secret->save();
-
         // Display the secret url
-        return view('stored', compact('secret'));
+        return view('stored', [
+            'slug' => $this->secrets->store($request->secret, $request->expires_at)
+        ]);
     }
 
     /**
@@ -52,41 +64,38 @@ class SecretController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Secret $secret)
+    public function show($slug)
     {
-        // Display the landing page
-        return view('show', compact('secret'));
+        return view('show', compact('slug'));
     }
 
     /**
      * Show and destroy the secret.
      *
-     * @param  \App\Models\Secret  $secret
+     * @param  string  $slug
      *
      * @return string
      */
-    public function reveal(Secret $secret)
+    public function reveal($slug)
     {
-        // Delete the secret
-        // $secret->delete();
-
-        // Display the secret
-        return view('reveal', compact('secret'));
+        return view('reveal', [
+            'secret' => $this->secrets->get($slug)
+        ]);
     }
 
     /**
      * Destroy the secret without showing it.
      *
-     * @param  \App\Models\Secret  $secret
+     * @param  string  $slug
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Secret $secret)
+    public function destroy($slug)
     {
-        // Delete the secret.
-        $secret->delete();
+        // Delete the secret
+        $this->secrets->delete($slug);
 
-        // Show it to the user.
+        // Display the destroyed page
         return view('destroyed');
     }
 }

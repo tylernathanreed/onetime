@@ -5,7 +5,7 @@
         @csrf
         <div class="form-group">
             <label for="secret">What's your secret?</label>
-            <textarea id="secret" name="secret" rows="5" class="form-control" maxlength="{{ App\Models\Secret::MAX_LENGTH }}" required></textarea>
+            <textarea id="secret" name="secret" rows="5" class="form-control" maxlength="{{ app('secrets')->byteLimit() }}" required></textarea>
         </div>
         <div class="form-group">
             <label for="expires">When should it expire?</label>

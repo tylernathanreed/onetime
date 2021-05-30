@@ -3,8 +3,6 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Request;
-use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -29,31 +27,12 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * The displayers used to render exceptions.
-     *
-     * @var array
-     */
-    protected $displayers = [
-        \App\Exceptions\Displayers\DisplaySecretNotFoundExceptions::class
-    ];
-
-    /**
      * Register the exception handling callbacks for the application.
      *
      * @return void
      */
     public function register()
     {
-        // Register the view error paths
-        $this->registerErrorViewPaths();
-
-        // Determine the current request
-        $request = $this->container->bound('request')
-            ? $this->container->make('request')
-            : Request::createFromGlobals();
-
-        foreach($this->displayers as $displayer) {
-            $this->renderable(new DisplayHandler($request, $this->container->make($displayer)));
-        }
+        //
     }
 }
