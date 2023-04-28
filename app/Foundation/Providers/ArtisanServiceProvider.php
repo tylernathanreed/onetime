@@ -3,6 +3,26 @@
 namespace App\Foundation\Providers;
 
 use Illuminate\Foundation\Providers\ArtisanServiceProvider as ServiceProvider;
+use Illuminate\Cache\Console\ClearCommand as CacheClearCommand;
+use Illuminate\Cache\Console\ForgetCommand as CacheForgetCommand;
+use Illuminate\Foundation\Console\ClearCompiledCommand;
+use Illuminate\Foundation\Console\ConfigCacheCommand;
+use Illuminate\Foundation\Console\ConfigClearCommand;
+use Illuminate\Foundation\Console\DownCommand;
+use Illuminate\Foundation\Console\EnvironmentCommand;
+use Illuminate\Foundation\Console\KeyGenerateCommand;
+use Illuminate\Foundation\Console\OptimizeClearCommand;
+use Illuminate\Foundation\Console\OptimizeCommand;
+use Illuminate\Foundation\Console\PackageDiscoverCommand;
+use Illuminate\Foundation\Console\RouteCacheCommand;
+use Illuminate\Foundation\Console\RouteClearCommand;
+use Illuminate\Foundation\Console\RouteListCommand;
+use Illuminate\Foundation\Console\ServeCommand;
+use Illuminate\Foundation\Console\StorageLinkCommand;
+use Illuminate\Foundation\Console\UpCommand;
+use Illuminate\Foundation\Console\VendorPublishCommand;
+use Illuminate\Foundation\Console\ViewCacheCommand;
+use Illuminate\Foundation\Console\ViewClearCommand;
 
 class ArtisanServiceProvider extends ServiceProvider
 {
@@ -12,47 +32,59 @@ class ArtisanServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        'CacheClear' => 'command.cache.clear',
-        'CacheForget' => 'command.cache.forget',
-        'ClearCompiled' => 'command.clear-compiled',
-        // 'ClearResets' => 'command.auth.resets.clear',
-        'ConfigCache' => 'command.config.cache',
-        'ConfigClear' => 'command.config.clear',
+        // 'About' => AboutCommand::class,
+        'CacheClear' => CacheClearCommand::class,
+        'CacheForget' => CacheForgetCommand::class,
+        'ClearCompiled' => ClearCompiledCommand::class,
+        // 'ClearResets' => ClearResetsCommand::class,
+        'ConfigCache' => ConfigCacheCommand::class,
+        'ConfigClear' => ConfigClearCommand::class,
         // 'Db' => DbCommand::class,
-        // 'DbWipe' => 'command.db.wipe',
-        'Down' => 'command.down',
-        'Environment' => 'command.environment',
-        // 'EventCache' => 'command.event.cache',
-        // 'EventClear' => 'command.event.clear',
-        // 'EventList' => 'command.event.list',
-        'KeyGenerate' => 'command.key.generate',
-        'Optimize' => 'command.optimize',
-        'OptimizeClear' => 'command.optimize.clear',
-        'PackageDiscover' => 'command.package.discover',
-        // 'QueueClear' => 'command.queue.clear',
-        // 'QueueFailed' => 'command.queue.failed',
-        // 'QueueFlush' => 'command.queue.flush',
-        // 'QueueForget' => 'command.queue.forget',
-        // 'QueueListen' => 'command.queue.listen',
-        // 'QueuePruneBatches' => 'command.queue.prune-batches',
-        // 'QueueRestart' => 'command.queue.restart',
-        // 'QueueRetry' => 'command.queue.retry',
-        // 'QueueRetryBatch' => 'command.queue.retry-batch',
-        // 'QueueWork' => 'command.queue.work',
-        'RouteCache' => 'command.route.cache',
-        'RouteClear' => 'command.route.clear',
-        'RouteList' => 'command.route.list',
-        // 'SchemaDump' => 'command.schema.dump',
-        // 'Seed' => 'command.seed',
+        // 'DbMonitor' => DatabaseMonitorCommand::class,
+        // 'DbPrune' => PruneCommand::class,
+        // 'DbShow' => ShowCommand::class,
+        // 'DbTable' => DatabaseTableCommand::class,
+        // 'DbWipe' => WipeCommand::class,
+        'Down' => DownCommand::class,
+        'Environment' => EnvironmentCommand::class,
+        // 'EnvironmentDecrypt' => EnvironmentDecryptCommand::class,
+        // 'EnvironmentEncrypt' => EnvironmentEncryptCommand::class,
+        // 'EventCache' => EventCacheCommand::class,
+        // 'EventClear' => EventClearCommand::class,
+        // 'EventList' => EventListCommand::class,
+        'KeyGenerate' => KeyGenerateCommand::class,
+        'Optimize' => OptimizeCommand::class,
+        'OptimizeClear' => OptimizeClearCommand::class,
+        'PackageDiscover' => PackageDiscoverCommand::class,
+        // 'PruneStaleTagsCommand' => PruneStaleTagsCommand::class,
+        // 'QueueClear' => QueueClearCommand::class,
+        // 'QueueFailed' => ListFailedQueueCommand::class,
+        // 'QueueFlush' => FlushFailedQueueCommand::class,
+        // 'QueueForget' => ForgetFailedQueueCommand::class,
+        // 'QueueListen' => QueueListenCommand::class,
+        // 'QueueMonitor' => QueueMonitorCommand::class,
+        // 'QueuePruneBatches' => QueuePruneBatchesCommand::class,
+        // 'QueuePruneFailedJobs' => QueuePruneFailedJobsCommand::class,
+        // 'QueueRestart' => QueueRestartCommand::class,
+        // 'QueueRetry' => QueueRetryCommand::class,
+        // 'QueueRetryBatch' => QueueRetryBatchCommand::class,
+        // 'QueueWork' => QueueWorkCommand::class,
+        'RouteCache' => RouteCacheCommand::class,
+        'RouteClear' => RouteClearCommand::class,
+        'RouteList' => RouteListCommand::class,
+        // 'SchemaDump' => DumpCommand::class,
+        // 'Seed' => SeedCommand::class,
         // 'ScheduleFinish' => ScheduleFinishCommand::class,
         // 'ScheduleList' => ScheduleListCommand::class,
         // 'ScheduleRun' => ScheduleRunCommand::class,
+        // 'ScheduleClearCache' => ScheduleClearCacheCommand::class,
         // 'ScheduleTest' => ScheduleTestCommand::class,
         // 'ScheduleWork' => ScheduleWorkCommand::class,
-        'StorageLink' => 'command.storage.link',
-        'Up' => 'command.up',
-        'ViewCache' => 'command.view.cache',
-        'ViewClear' => 'command.view.clear',
+        // 'ShowModel' => ShowModelCommand::class,
+        'StorageLink' => StorageLinkCommand::class,
+        'Up' => UpCommand::class,
+        'ViewCache' => ViewCacheCommand::class,
+        'ViewClear' => ViewClearCommand::class
     ];
 
     /**
@@ -61,37 +93,41 @@ class ArtisanServiceProvider extends ServiceProvider
      * @var array
      */
     protected $devCommands = [
-        // 'CacheTable' => 'command.cache.table',
-        // 'CastMake' => 'command.cast.make',
-        // 'ChannelMake' => 'command.channel.make',
-        // 'ComponentMake' => 'command.component.make',
-        // 'ConsoleMake' => 'command.console.make',
-        // 'ControllerMake' => 'command.controller.make',
-        // 'EventGenerate' => 'command.event.generate',
-        // 'EventMake' => 'command.event.make',
-        // 'ExceptionMake' => 'command.exception.make',
-        // 'FactoryMake' => 'command.factory.make',
-        // 'JobMake' => 'command.job.make',
-        // 'ListenerMake' => 'command.listener.make',
-        // 'MailMake' => 'command.mail.make',
-        // 'MiddlewareMake' => 'command.middleware.make',
-        // 'ModelMake' => 'command.model.make',
-        // 'NotificationMake' => 'command.notification.make',
-        // 'NotificationTable' => 'command.notification.table',
-        // 'ObserverMake' => 'command.observer.make',
-        // 'PolicyMake' => 'command.policy.make',
-        // 'ProviderMake' => 'command.provider.make',
-        // 'QueueFailedTable' => 'command.queue.failed-table',
-        // 'QueueTable' => 'command.queue.table',
-        // 'QueueBatchesTable' => 'command.queue.batches-table',
-        // 'RequestMake' => 'command.request.make',
-        // 'ResourceMake' => 'command.resource.make',
-        // 'RuleMake' => 'command.rule.make',
-        // 'SeederMake' => 'command.seeder.make',
-        // 'SessionTable' => 'command.session.table',
-        'Serve' => 'command.serve',
-        // 'StubPublish' => 'command.stub.publish',
-        // 'TestMake' => 'command.test.make',
-        'VendorPublish' => 'command.vendor.publish',
+        // 'CacheTable' => CacheTableCommand::class,
+        // 'CastMake' => CastMakeCommand::class,
+        // 'ChannelList' => ChannelListCommand::class,
+        // 'ChannelMake' => ChannelMakeCommand::class,
+        // 'ComponentMake' => ComponentMakeCommand::class,
+        // 'ConsoleMake' => ConsoleMakeCommand::class,
+        // 'ControllerMake' => ControllerMakeCommand::class,
+        // 'Docs' => DocsCommand::class,
+        // 'EventGenerate' => EventGenerateCommand::class,
+        // 'EventMake' => EventMakeCommand::class,
+        // 'ExceptionMake' => ExceptionMakeCommand::class,
+        // 'FactoryMake' => FactoryMakeCommand::class,
+        // 'JobMake' => JobMakeCommand::class,
+        // 'LangPublish' => LangPublishCommand::class,
+        // 'ListenerMake' => ListenerMakeCommand::class,
+        // 'MailMake' => MailMakeCommand::class,
+        // 'MiddlewareMake' => MiddlewareMakeCommand::class,
+        // 'ModelMake' => ModelMakeCommand::class,
+        // 'NotificationMake' => NotificationMakeCommand::class,
+        // 'NotificationTable' => NotificationTableCommand::class,
+        // 'ObserverMake' => ObserverMakeCommand::class,
+        // 'PolicyMake' => PolicyMakeCommand::class,
+        // 'ProviderMake' => ProviderMakeCommand::class,
+        // 'QueueFailedTable' => FailedTableCommand::class,
+        // 'QueueTable' => TableCommand::class,
+        // 'QueueBatchesTable' => BatchesTableCommand::class,
+        // 'RequestMake' => RequestMakeCommand::class,
+        // 'ResourceMake' => ResourceMakeCommand::class,
+        // 'RuleMake' => RuleMakeCommand::class,
+        // 'ScopeMake' => ScopeMakeCommand::class,
+        // 'SeederMake' => SeederMakeCommand::class,
+        // 'SessionTable' => SessionTableCommand::class,
+        'Serve' => ServeCommand::class,
+        // 'StubPublish' => StubPublishCommand::class,
+        // 'TestMake' => TestMakeCommand::class,
+        'VendorPublish' => VendorPublishCommand::class
     ];
 }
