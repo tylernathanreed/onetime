@@ -19,7 +19,7 @@ class SecretServiceProvider extends ServiceProvider implements DeferrableProvide
         // Register the secret factory
         $this->app->singleton(FactoryContract::class, function($app) {
             return new Factory(
-                $app['cache']->store('octane'),
+                $app['cache']->store('secrets'),
                 $app['encrypter'],
                 $app['config']->get('octane.cache.rows'),
                 $app['config']->get('octane.cache.bytes')

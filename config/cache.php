@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'octane'),
+    'default' => env('CACHE_DRIVER', 'secrets'),
 
     /*
     |--------------------------------------------------------------------------
@@ -33,9 +33,10 @@ return [
 
     'stores' => [
 
-        'octane' => [
-            'driver' => 'octane',
-        ],
+        'secrets' => [
+            'driver' => env('CACHE_SECRETS_DRIVER', 'octane'),
+            'path' => storage_path('framework/cache/data') // for "file" driver
+        ]
 
     ],
 
