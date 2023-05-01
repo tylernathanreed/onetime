@@ -136,14 +136,39 @@ return [
     |
     */
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
+    'providers' => ServiceProvider::defaultProviders()
+        /**
+         * Unused Service Providers...
+         */
+        ->except([
+            Illuminate\Auth\AuthServiceProvider::class,
+            Illuminate\Broadcasting\BroadcastServiceProvider::class,
+            Illuminate\Bus\BusServiceProvider::class,
+            Illuminate\Database\DatabaseServiceProvider::class,
+            Illuminate\Hashing\HashServiceProvider::class,
+            Illuminate\Mail\MailServiceProvider::class,
+            Illuminate\Notifications\NotificationServiceProvider::class,
+            Illuminate\Pagination\PaginationServiceProvider::class,
+            Illuminate\Pipeline\PipelineServiceProvider::class,
+            Illuminate\Queue\QueueServiceProvider::class,
+            Illuminate\Redis\RedisServiceProvider::class,
+            Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+            Illuminate\Translation\TranslationServiceProvider::class
+        ])
+
+        /**
+         * Optimized Service Providers...
+         */
+        ->replace([
+            Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class => App\Foundation\Providers\ConsoleSupportServiceProvider::class
+        ])
 
         /**
          * Application Service Providers...
          */
-        App\Providers\RouteServiceProvider::class,
-        App\Services\Secrets\SecretServiceProvider::class
-
-    ])->toArray()
+        ->merge([
+            App\Providers\RouteServiceProvider::class,
+            App\Services\Secrets\SecretServiceProvider::class
+        ])->toArray()
 
 ];
