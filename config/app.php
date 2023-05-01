@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\ServiceProvider;
+
 return [
 
     /*
@@ -134,23 +136,7 @@ return [
     |
     */
 
-    'providers' => [
-
-        /**
-         * Laravel Framework Service Providers...
-         */
-        Illuminate\Bus\BusServiceProvider::class,
-        Illuminate\Cache\CacheServiceProvider::class,
-        App\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Cookie\CookieServiceProvider::class,
-        Illuminate\Encryption\EncryptionServiceProvider::class,
-        Illuminate\Filesystem\FilesystemServiceProvider::class,
-        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
-        Illuminate\Pipeline\PipelineServiceProvider::class,
-        Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
-        Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,
+    'providers' => ServiceProvider::defaultProviders()->merge([
 
         /**
          * Application Service Providers...
@@ -158,6 +144,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Services\Secrets\SecretServiceProvider::class
 
-    ]
+    ])->toArray()
 
 ];
