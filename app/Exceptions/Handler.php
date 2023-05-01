@@ -28,19 +28,6 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
-     *
-     * @param  \Throwable  $e
-     * @return void
-     *
-     * @throws \Throwable
-     */
-    public function report(Throwable $e)
-    {
-        dd($e);
-    }
-
-    /**
      * Register the exception handling callbacks for the application.
      *
      * @return void
