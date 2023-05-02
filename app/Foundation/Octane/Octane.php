@@ -12,6 +12,7 @@ class Octane
     public static function prepareApplicationForNextRequest(): array
     {
         return static::except(Foundation::prepareApplicationForNextRequest(), [
+            \Laravel\Octane\Listeners\FlushLocaleState::class,
             \Laravel\Octane\Listeners\FlushQueuedCookies::class,
             \Laravel\Octane\Listeners\FlushAuthenticationState::class,
             \Laravel\Octane\Listeners\GiveNewRequestInstanceToPaginator::class
