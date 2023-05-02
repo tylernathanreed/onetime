@@ -7,46 +7,32 @@ use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Str;
 use App\Services\Secrets\Contracts\Factory as FactoryContract;
+use DateTimeInterface;
 
 class Factory implements FactoryContract
 {
     /**
      * The cache repository implementation.
-     *
-     * @var \Illuminate\Contracts\Cache\Repository
      */
-    protected $cache;
+    protected Repository $cache;
 
     /**
      * The encrypter implementation.
-     *
-     * @var \Illuminate\Contracts\Encryption\Encrypter
      */
-    protected $encrypter;
+    protected Encrypter $encrypter;
 
     /**
      * The maximum number of secrets that can be stored.
-     *
-     * @var int|null
      */
-    protected $rowLimit;
+    protected ?int $rowLimit;
 
     /**
      * The maximum byte length allowed for a single secret.
-     *
-     * @var int|null
      */
-    protected $byteLimit;
+    protected ?int $byteLimit;
 
     /**
      * Creates a new secret factory.
-     *
-     * @param  \Illuminate\Contracts\Cache\Repository      $cache
-     * @param  \Illuminate\Contracts\Encryption\Encrypter  $encrypter
-     * @param  int|null                                    $rowLimit
-     * @param  int|null                                    $byteLimit
-     *
-     * @return $this
      */
     public function __construct(Repository $cache, Encrypter $encrypter, int $rowLimit = null, int $byteLimit = null)
     {
@@ -58,24 +44,16 @@ class Factory implements FactoryContract
 
     /**
      * Returns whether or not the specified secret exists.
-     *
-     * @param  string  $slug
-     *
-     * @return boolean
      */
-    public function has($slug)
+    public function has(string $slug): bool
     {
         return $this->cache->has($slug);
     }
 
     /**
      * Returns the specified secret.
-     *
-     * @param  string  $slug
-     *
-     * @return string|null
      */
-    public function get($slug)
+    public function get(string $slug): ?string
     {
         // Determine the secret
         $secret = $this->cache->pull($slug);
@@ -91,13 +69,8 @@ class Factory implements FactoryContract
 
     /**
      * Stores the specified secret and returns its identifer.
-     *
-     * @param  string  $secret
-     * @param  \DateTimeInterface|\DateInterval|string|int|null  $ttl
-     *
-     * @return string
      */
-    public function store($secret, $ttl = null)
+    public function store(string $secret, DateTimeInterface|string|null $ttl = null): string
     {
         // Generate a secret identifer
         $identifer = $this->identifer();
@@ -119,66 +92,48 @@ class Factory implements FactoryContract
 
     /**
      * Deletes the specified secret.
-     *
-     * @param  string  $slug
-     *
-     * @return boolean
      */
-    public function delete($slug)
+    public function delete(string $slug): bool
     {
         return $this->cache->forget($slug);
     }
 
     /**
      * Encrypts the specified secret.
-     *
-     * @param  string  $secret
-     *
-     * @return string
      */
-    protected function encrypt($secret)
+    protected function encrypt(string $secret): string
     {
         return $this->encrypter->encrypt(gzcompress($secret));
     }
 
     /**
      * Decrypts the specified secret.
-     *
-     * @param  string  $secret
-     *
-     * @return string
      */
-    protected function decrypt($secret)
+    protected function decrypt(string $secret): string
     {
         return gzuncompress($this->encrypter->decrypt($secret));
     }
 
     /**
      * Creatse and returns a new secret identifer.
-     *
-     * @return string
      */
-    protected function identifer()
+    protected function identifer(): string
     {
         return substr(Str::slug(Str::random(48)), 0, 32);
     }
 
     /**
      * Returns the maximum number of secrets that can be stored.
-     *
-     * @return int|null
      */
-    public function rowLimit()
+    public function rowLimit(): ?int
     {
         return $this->rowLimit;
     }
 
     /**
      * Returns the maximum byte length allowed for a single secret.
-     *
-     * @return int|null
      */
-    public function byteLimit()
+    public function byteLimit(): ?int
     {
         return $this->byteLimit;
     }

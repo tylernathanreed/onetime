@@ -9,17 +9,11 @@ class SecretController extends Controller
 {
     /**
      * The secret factory implementation.
-     *
-     * @var \App\Services\Secrets\Contracts\Factory
      */
-    protected $secrets;
+    protected SecretFactory $secrets;
 
     /**
      * Creates a new controller instance.
-     *
-     * @param  \App\Services\Secrets\Contracts\Factory  $secrets
-     *
-     * @return $this
      */
     public function __construct(SecretFactory $secrets)
     {
@@ -28,8 +22,6 @@ class SecretController extends Controller
 
     /**
      * Show the form for creating a secret.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -38,10 +30,6 @@ class SecretController extends Controller
 
     /**
      * Store a secret and show the user the URL for it.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -59,24 +47,16 @@ class SecretController extends Controller
 
     /**
      * Show the user the secret landing page.
-     *
-     * @param  string  $slug
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(string $slug)
     {
         return view('show', compact('slug'));
     }
 
     /**
      * Show and destroy the secret.
-     *
-     * @param  string  $slug
-     *
-     * @return string
      */
-    public function reveal($slug)
+    public function reveal(string $slug)
     {
         return view('reveal', [
             'secret' => $this->secrets->get($slug)
@@ -85,12 +65,8 @@ class SecretController extends Controller
 
     /**
      * Destroy the secret without showing it.
-     *
-     * @param  string  $slug
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(string $slug)
     {
         // Delete the secret
         $this->secrets->delete($slug);

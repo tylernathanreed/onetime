@@ -2,42 +2,37 @@
 
 namespace App\Services\Secrets\Contracts;
 
+use DateTimeInterface;
+
 interface Factory
 {
     /**
      * Returns whether or not the specified secret exists.
-     *
-     * @param  string  $slug
-     *
-     * @return boolean
      */
-    public function has(string $slug);
+    public function has(string $slug): bool;
 
     /**
      * Returns the specified secret.
-     *
-     * @param  string  $slug
-     *
-     * @return string|null
      */
-    public function get(string $slug);
+    public function get(string $slug): ?string;
 
     /**
      * Stores the specified secret and returns its identifer.
-     *
-     * @param  string  $secret
-     * @param  \DateTimeInterface|\DateInterval|string|int|null  $ttl
-     *
-     * @return string
      */
-    public function store(string $secret, $ttl = null);
+    public function store(string $secret, DateTimeInterface|string|null $ttl = null);
 
     /**
      * Deletes the specified secret.
-     *
-     * @param  string  $slug
-     *
-     * @return boolean
      */
-    public function delete(string $slug);
+    public function delete(string $slug): bool;
+
+    /**
+     * Returns the maximum number of secrets that can be stored.
+     */
+    public function rowLimit(): ?int;
+
+    /**
+     * Returns the maximum byte length allowed for a single secret.
+     */
+    public function byteLimit(): ?int;
 }
