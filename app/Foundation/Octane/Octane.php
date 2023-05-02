@@ -12,7 +12,6 @@ class Octane
     public static function prepareApplicationForNextRequest(): array
     {
         return static::except(Foundation::prepareApplicationForNextRequest(), [
-            \Laravel\Octane\Listeners\FlushLocaleState::class,
             \Laravel\Octane\Listeners\FlushQueuedCookies::class,
             \Laravel\Octane\Listeners\FlushAuthenticationState::class,
             \Laravel\Octane\Listeners\GiveNewRequestInstanceToPaginator::class
@@ -37,7 +36,6 @@ class Octane
             \Laravel\Octane\Listeners\RefreshQueryDurationHandling::class,
             \Laravel\Octane\Listeners\FlushArrayCache::class,
             \Laravel\Octane\Listeners\FlushStrCache::class,
-            \Laravel\Octane\Listeners\FlushTranslatorCache::class,
 
             // First-Party Packages...
             \Laravel\Octane\Listeners\PrepareInertiaForNextOperation::class,
@@ -59,8 +57,7 @@ class Octane
             'db',
             'db.factory',
             'db.transactions',
-            'hash',
-            'translator'
+            'hash'
         ]);
     }
 
