@@ -12,7 +12,7 @@
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
     </head>
-    <body class="bg-gray-800 text-white">
+    <body class="bg-gray-800 text-white overflow-hidden">
         <a class="github-ribbon hidden sm:block" target="_blank" href="https://github.com/tylernathanreed/onetime">
             @include('icons.github')
             View Source
@@ -37,7 +37,7 @@
         </main>
         <div class="fixed bottom-0 text-center p-3 w-full">
             <?php $start = request()->server('REQUEST_TIME_FLOAT'); ?>
-            <small class="text-gray-500">This page served in {{ number_format((microtime(true) - $start) * 1000, 2) }}ms.</small>
+            <small class="text-gray-500">This page was served in {{ number_format((microtime(true) - $start) * 1000, 2) }}ms.</small>
         </div>
         <script type="text/javascript">
             function copyText(elementId) {
