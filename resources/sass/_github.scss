@@ -1,0 +1,15 @@
+.github-ribbon {
+    @apply border-2 border-white;
+    @apply text-white font-bold;
+
+    position: absolute;
+    top: 2.5em;
+    right: -4em;
+    padding: 0.5em 4em;
+    transform: rotate(45deg);
+    background: rgba(0, 0, 0, 0.15);
+
+    &:hover, &:active {
+        background-color: rgba(0, 0, 0, 0.0);
+    }
+}

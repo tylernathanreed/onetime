@@ -2,6 +2,8 @@
 
 return [
 
+    'enabled' => env('DEBUGBAR_ENABLED', null),
+
     'collectors' => [
         'phpinfo'         => true,  // Php version
         'messages'        => false,  // Messages
