@@ -7,15 +7,15 @@
     </div>
     <p>
         <button type="button" class="btn btn-success" onclick="copyText('url')">
-            @include('icons.copy')
+            @icon('copy')
             Copy URL to Clipboard
         </button>
         <a class="btn btn-danger" href="{{ route('destroy', $slug) }}">
-            @include('icons.destroy')
+            @icon('destroy')
             Destroy this Secret
         </a>
         <a class="btn btn-primary" href="{{ route('index') }}">
-            @include('icons.share')
+            @icon('share')
             Share another Secret
         </a>
     </p>

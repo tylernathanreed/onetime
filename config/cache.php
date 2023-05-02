@@ -33,9 +33,14 @@ return [
 
     'stores' => [
 
+        'icons' => [
+            'driver' => env('CACHE_ICONS_DRIVER', 'octane'),
+            'path' => storage_path('framework/cache/icons/data') // for "file" driver
+        ],
+
         'secrets' => [
             'driver' => env('CACHE_SECRETS_DRIVER', 'octane'),
-            'path' => storage_path('framework/cache/data') // for "file" driver
+            'path' => storage_path('framework/cache/secrets/data') // for "file" driver
         ]
 
     ],

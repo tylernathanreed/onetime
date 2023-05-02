@@ -4,7 +4,7 @@
 <p>This secret has now been destroyed forever.</p>
 <p>
     <a class="btn btn-primary" href="{{ route('index') }}">
-        @include('icons.share')
+        @icon('share')
         Share another Secret
     </a>
 </p>

@@ -15,7 +15,7 @@
     </div>
 
     <a class="btn btn-primary" href="{{ route('index') }}">
-        @include('icons.share')
+        @icon('share')
         Share a new Secret
     </a>
 

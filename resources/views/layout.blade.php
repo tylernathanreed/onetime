@@ -14,13 +14,13 @@
     </head>
     <body class="bg-gray-800 text-white overflow-hidden">
         <a class="github-ribbon hidden sm:block" target="_blank" href="https://github.com/tylernathanreed/onetime">
-            @include('icons.github')
+            @icon('github')
             View Source
         </a>
         <main role="main" class="container mx-auto px-4">
             <div class="mt-12 xl:px-48 lg:px-32 md:px-16 sm:px-8 px-4">
                 <h1 class="text-2xl sm:text-3xl md:text-5xl mb-2">
-                    @include('icons.user-secret')
+                    @icon('user-secret')
                     <span>{{ config('app.name') }}</span>
                 </h1>
 

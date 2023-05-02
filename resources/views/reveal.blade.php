@@ -10,11 +10,11 @@
 
     <p>
         <button type="button" class="btn btn-success" onclick="copyText('secret')">
-            @include('icons.copy')
+            @icon('copy')
             Copy Secret to Clipboard
         </button>
         <a class="btn btn-primary" href="{{ route('index') }}">
-            @include('icons.share')
+            @icon('share')
             Share another Secret
         </a>
     </p>

@@ -2,7 +2,7 @@
 
 @section('content')
     <a class="btn btn-warning btn-lg mt-3" href="{{ route('reveal', $slug) }}">
-        @include('icons.reveal')
+        @icon('reveal')
         Show this Secret
     </a>
 @endsection

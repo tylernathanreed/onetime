@@ -167,6 +167,7 @@ return [
          */
         ->merge([
             App\Providers\RouteServiceProvider::class,
+            App\Services\Icons\IconServiceProvider::class,
             App\Services\Secrets\SecretServiceProvider::class
         ])->toArray()
 
