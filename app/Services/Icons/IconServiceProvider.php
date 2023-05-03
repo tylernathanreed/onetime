@@ -20,6 +20,7 @@ class IconServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->alias(ManagerContract::class, Manager::class);
         $this->app->alias(ManagerContract::class, 'icons');
     }
 
@@ -35,8 +36,6 @@ class IconServiceProvider extends ServiceProvider
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
     public function provides()
     {
