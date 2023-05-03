@@ -15,6 +15,7 @@
         "barryvdh/laravel-debugbar": "^3.5",
         "fakerphp/faker": "^1.9.1",
         "filp/whoops": "^2.8",
+        "laravel/pint": "^1.10",
         "laravel/sail": "^1.5",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^7.5",

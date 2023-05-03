@@ -2,7 +2,6 @@
 
 namespace App\Foundation\Providers;
 
-use Illuminate\Foundation\Providers\ArtisanServiceProvider as ServiceProvider;
 use Illuminate\Cache\Console\ClearCommand as CacheClearCommand;
 use Illuminate\Cache\Console\ForgetCommand as CacheForgetCommand;
 use Illuminate\Foundation\Console\ClearCompiledCommand;
@@ -23,6 +22,7 @@ use Illuminate\Foundation\Console\UpCommand;
 use Illuminate\Foundation\Console\VendorPublishCommand;
 use Illuminate\Foundation\Console\ViewCacheCommand;
 use Illuminate\Foundation\Console\ViewClearCommand;
+use Illuminate\Foundation\Providers\ArtisanServiceProvider as ServiceProvider;
 
 class ArtisanServiceProvider extends ServiceProvider
 {

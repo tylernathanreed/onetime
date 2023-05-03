@@ -2,9 +2,9 @@
 
 namespace App\Services\Icons;
 
-use Illuminate\Support\ServiceProvider;
 use App\Services\Icons\Contracts\Manager as ManagerContract;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class IconServiceProvider extends ServiceProvider
 {

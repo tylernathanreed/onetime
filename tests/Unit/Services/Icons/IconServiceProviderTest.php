@@ -6,7 +6,6 @@ use App\Services\Icons\Contracts\Manager as ManagerContract;
 use App\Services\Icons\IconServiceProvider;
 use App\Services\Icons\Manager;
 use Closure;
-use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\View\Factory as ViewFactory;

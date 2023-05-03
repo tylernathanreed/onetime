@@ -8,8 +8,8 @@ use App\Services\Secrets\Contracts\SecretKeyGenerator;
 use App\Services\Secrets\Contracts\SecretManager;
 use App\Services\Secrets\Contracts\SecretRepository;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
+use Illuminate\Support\ServiceProvider;
 use Laravel\Octane\Cache\OctaneStore;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

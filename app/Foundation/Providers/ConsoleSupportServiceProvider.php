@@ -2,8 +2,8 @@
 
 namespace App\Foundation\Providers;
 
-use Illuminate\Support\AggregateServiceProvider;
 use Illuminate\Foundation\Providers\ComposerServiceProvider;
+use Illuminate\Support\AggregateServiceProvider;
 
 class ConsoleSupportServiceProvider extends AggregateServiceProvider
 {

@@ -15,7 +15,7 @@ class Manager implements ManagerContract
         protected Repository $cache,
         protected Factory $view
     ) {
-       // 
+        //
     }
 
     /**

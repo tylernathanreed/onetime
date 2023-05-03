@@ -47,8 +47,6 @@ class Octane
 
     /**
      * Get the container bindings / services that should be pre-resolved by default.
-     *
-     * @return array
      */
     public static function defaultServicesToWarm(): array
     {

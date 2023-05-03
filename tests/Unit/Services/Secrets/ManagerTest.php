@@ -26,7 +26,7 @@ class ManagerTest extends TestCase
             ->shouldReceive('has')
             ->with('foo')
             ->andReturn(true, false);
-    
+
         $this->assertTrue($manager->has('foo'));
         $this->assertFalse($manager->has('foo'));
     }
@@ -44,7 +44,7 @@ class ManagerTest extends TestCase
             ->with('foo')
             ->once()
             ->andReturn(null);
-        
+
         $this->assertEquals(null, $manager->get('foo'));
     }
 
@@ -61,7 +61,7 @@ class ManagerTest extends TestCase
             ->with('foo')
             ->once()
             ->andReturn('my-encrypted-and-compressed-string');
-        
+
         /** @var MockInterface */
         $encrypter = $manager->getEncrypter();
 
