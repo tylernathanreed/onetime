@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\Container as ContainerContract;
@@ -115,6 +116,7 @@ abstract class TestCase extends Base
         parent::tearDown();
 
         $this->tearDownMockery();
+        $this->tearDownCarbon();
         $this->tearDownContainer();
     }
 
@@ -134,6 +136,14 @@ abstract class TestCase extends Base
                 throw $e;
             }
         }
+    }
+
+    /**
+     * Tears down carbon after each test.
+     */
+    protected function tearDownCarbon(): void
+    {
+        Carbon::setTestNow(null);
     }
 
     /**

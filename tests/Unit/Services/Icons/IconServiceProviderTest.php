@@ -49,11 +49,27 @@ class IconServiceProviderTest extends TestCase
                 ->shouldReceive('directive')
                 ->withArgs(
                     fn ($a0) => $a0 == 'icon',
-                    fn ($a1) => $a1 instanceof Closure && $a1('"foo"') == "<?php echo app('icons')->icon(\"foo\"); ?>"
+                    fn ($a1) => $a1 instanceof Closure
                 )
-                ->once();
+                ->once()
+                ->andReturnUsing(function ($a0, $a1) {
+                    $this->assertEquals(
+                        "<?php echo app('icons')->icon(\"foo\"); ?>",
+                        $a1('"foo"')
+                    );
+                });
         }));
 
         $this->bootServiceProvider(IconServiceProvider::class);
+    }
+
+    /** @test */
+    public function test_provides()
+    {
+        $provider = $this->newServiceProvider(IconServiceProvider::class);
+
+        $this->assertEquals([
+            ManagerContract::class
+        ], $provider->provides());
     }
 }

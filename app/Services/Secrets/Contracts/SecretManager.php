@@ -4,7 +4,7 @@ namespace App\Services\Secrets\Contracts;
 
 use DateTimeInterface;
 
-interface Factory
+interface SecretManager
 {
     /**
      * Returns whether or not the specified secret exists.
@@ -27,12 +27,17 @@ interface Factory
     public function delete(string $slug): bool;
 
     /**
-     * Returns the maximum number of secrets that can be stored.
+     * Returns the secret key generator implementation.
      */
-    public function rowLimit(): ?int;
+    public function getKeyGenerator(): SecretKeyGenerator;
 
     /**
-     * Returns the maximum byte length allowed for a single secret.
+     * Returns the secret repository implementation.
      */
-    public function byteLimit(): ?int;
+    public function getRepository(): SecretRepository;
+
+    /**
+     * Returns the encrypter implementation.
+     */
+    public function getEncrypter(): SecretEncrypter;
 }

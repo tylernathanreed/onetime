@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Secrets\Contracts\Factory as SecretFactory;
+use App\Services\Secrets\Contracts\SecretManager;
 use Illuminate\Http\Request;
 
 class SecretController extends Controller
 {
     /**
-     * The secret factory implementation.
-     */
-    protected SecretFactory $secrets;
-
-    /**
      * Creates a new controller instance.
      */
-    public function __construct(SecretFactory $secrets)
-    {
-        $this->secrets = $secrets;
+    public function __construct(
+        protected SecretManager $secrets
+    ) {
+        //
     }
 
     /**
@@ -33,13 +29,17 @@ class SecretController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request
         $this->validate($request, [
-            'secret' => 'required|string|max:' . $this->secrets->byteLimit(),
+            'secret' => array_filter([
+                'required',
+                'string',
+                ! is_null($max = $this->secrets->getRepository()->getMaxLength())
+                    ? 'max:' . $max
+                    : null
+            ]),
             'expires_at' => 'nullable|string'
         ]);
 
-        // Display the secret url
         return view('stored', [
             'slug' => $this->secrets->store($request->secret, $request->expires_at)
         ]);
@@ -68,10 +68,8 @@ class SecretController extends Controller
      */
     public function destroy(string $slug)
     {
-        // Delete the secret
         $this->secrets->delete($slug);
 
-        // Display the destroyed page
         return view('destroyed');
     }
 }
