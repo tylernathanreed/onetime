@@ -1,6 +1,11 @@
-<p align="center"><a href="https://onetime.tylernathanreed.com" target="_blank">One Time Secrets</a></p>
-
-Create and share one-time secrets.
+<div align="center">
+    <a href="https://onetime.tylernathanreed.com" target="_blank">
+        <img src="/docs/logo.png" alt="One Time Secrets"></img>
+    </a>
+</div>
+<p align="center">
+    <small><i>Create and share one-time secrets.</i></small>
+</p>
 
 ## About One Time Secrets
 
