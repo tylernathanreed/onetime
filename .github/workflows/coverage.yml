@@ -32,6 +32,4 @@ jobs:
           command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
 
       - name: Execute coverage
-        run:
-          php artisan key:generate
-          php artisan test --compact --coverage --min=100
+        run: php artisan key:generate && php artisan test --compact --coverage --min=100
