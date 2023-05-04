@@ -8,10 +8,7 @@ use App\Services\Secrets\Contracts\SecretKeyGenerator;
 use App\Services\Secrets\Contracts\SecretManager;
 use App\Services\Secrets\Contracts\SecretRepository;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Octane\Cache\OctaneStore;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SecretServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -25,7 +22,6 @@ class SecretServiceProvider extends ServiceProvider implements DeferrableProvide
         $this->registerSecretCompressor();
         $this->registerSecretEncrypter();
         $this->registerSecretManager();
-        $this->registerRouterBinding();
     }
 
     /**
@@ -46,11 +42,11 @@ class SecretServiceProvider extends ServiceProvider implements DeferrableProvide
         $this->app->singleton(SecretRepository::class, function ($app) {
             $repository = $app->make('cache')->store('secrets');
 
-            if ($repository->getStore() instanceof OctaneStore) {
-                $config = $app->make('config');
+            $config = $app->make('config');
 
-                $maxCount = $config->get('octane.cache.rows');
-                $maxLength = $config->get('octane.cache.bytes');
+            if (is_array($limits = $config->get('cache.stores.secrets.limits'))) {
+                $maxCount = $limits['count'] ?? null;
+                $maxLength = $limits['length'] ?? null;
             }
 
             return new CacheRepository(
@@ -93,27 +89,12 @@ class SecretServiceProvider extends ServiceProvider implements DeferrableProvide
             return new Manager(
                 $app->make(SecretKeyGenerator::class),
                 $app->make(SecretRepository::class),
-                $app->make(SecretEncrypter::class)
+                $app->make(SecretEncrypter::class),
+                $app->make('events')
             );
         });
 
         $this->app->alias(SecretManager::class, 'secrets');
-    }
-
-    /**
-     * Registers the router binding.
-     */
-    protected function registerRouterBinding(): void
-    {
-        $this->app->afterResolving('router', function (Router $router, $app) {
-            $router->bind('secret', function ($slug) use ($app) {
-                if (! $app->make(SecretManager::class)->has($slug)) {
-                    throw new NotFoundHttpException('Your secret does not exist, or has expired.');
-                }
-
-                return $slug;
-            });
-        });
     }
 
     /**

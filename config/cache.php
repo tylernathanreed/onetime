@@ -40,7 +40,11 @@ return [
 
         'secrets' => [
             'driver' => env('CACHE_SECRETS_DRIVER', 'octane'),
-            'path' => storage_path('framework/cache/secrets/data') // for "file" driver
+            'path' => storage_path('framework/cache/secrets/data'), // for "file" driver
+            'limits' => [
+                'count' => env('CACHE_SECRETS_LIMIT_COUNT'),
+                'length' => env('CACHE_SECRETS_LIMIT_LENGTH')
+            ]
         ]
 
     ],

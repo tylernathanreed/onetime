@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\Secrets\Contracts\SecretManager;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SecretController extends Controller
 {
@@ -48,28 +49,44 @@ class SecretController extends Controller
     /**
      * Show the user the secret landing page.
      */
-    public function show(string $slug)
+    public function show(string $key)
     {
-        return view('show', compact('slug'));
+        $this->validateSecretExists($key);
+
+        return view('show', ['slug' => $key]);
     }
 
     /**
      * Show and destroy the secret.
      */
-    public function reveal(string $slug)
+    public function reveal(string $key)
     {
+        $this->validateSecretExists($key);
+
         return view('reveal', [
-            'secret' => $this->secrets->get($slug)
+            'secret' => $this->secrets->get($key)
         ]);
     }
 
     /**
      * Destroy the secret without showing it.
      */
-    public function destroy(string $slug)
+    public function destroy(string $key)
     {
-        $this->secrets->delete($slug);
+        $this->validateSecretExists($key);
+
+        $this->secrets->delete($key);
 
         return view('destroyed');
+    }
+
+    /**
+     * Validates that the specified secret exists.
+     */
+    protected function validateSecretExists(string $key): void
+    {
+        if (! $this->secrets->has($key)) {
+            throw new NotFoundHttpException('Your secret does not exist, or has expired.');
+        }
     }
 }

@@ -5,9 +5,13 @@ namespace Tests\Unit\Services\Secrets;
 use App\Services\Secrets\Contracts\SecretEncrypter;
 use App\Services\Secrets\Contracts\SecretKeyGenerator;
 use App\Services\Secrets\Contracts\SecretRepository;
+use App\Services\Secrets\Events\SecretCreated;
+use App\Services\Secrets\Events\SecretDestroyed;
+use App\Services\Secrets\Events\SecretRetrieved;
 use App\Services\Secrets\Manager;
 use Carbon\Carbon;
 use DateTimeInterface;
+use Illuminate\Contracts\Events\Dispatcher;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\Unit\TestCase;
@@ -71,6 +75,16 @@ class ManagerTest extends TestCase
             ->once()
             ->andReturn('bar');
 
+        /** @var MockInterface */
+        $events = $manager->getDispatcher();
+
+        $events
+            ->shouldReceive('dispatch')
+            ->withArgs(function (SecretRetrieved $event) {
+                return $event->key === 'foo';
+            })
+            ->once();
+
         $this->assertEquals('bar', $manager->get('foo'));
     }
 
@@ -108,6 +122,16 @@ class ManagerTest extends TestCase
             ->with('key', 'my-encrypted-and-compressed-string', $ttl)
             ->once();
 
+        /** @var MockInterface */
+        $events = $manager->getDispatcher();
+
+        $events
+            ->shouldReceive('dispatch')
+            ->withArgs(function (SecretCreated $event) {
+                return $event->key === 'key';
+            })
+            ->once();
+
         if (is_null($ttl)) {
             $manager->store('foo');
         } else {
@@ -137,6 +161,16 @@ class ManagerTest extends TestCase
             ->with('key')
             ->once()
             ->andReturn(true);
+
+        /** @var MockInterface */
+        $events = $manager->getDispatcher();
+
+        $events
+            ->shouldReceive('dispatch')
+            ->withArgs(function (SecretDestroyed $event) {
+                return $event->key === 'key';
+            })
+            ->once();
 
         $this->assertTrue($manager->delete('key'));
     }
@@ -179,7 +213,8 @@ class ManagerTest extends TestCase
         return new Manager(
             Mockery::mock(SecretKeyGenerator::class),
             Mockery::mock(SecretRepository::class),
-            Mockery::mock(SecretEncrypter::class)
+            Mockery::mock(SecretEncrypter::class),
+            Mockery::mock(Dispatcher::class)
         );
     }
 }

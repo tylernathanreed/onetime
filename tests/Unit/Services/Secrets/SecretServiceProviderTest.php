@@ -13,18 +13,16 @@ use App\Services\Secrets\GzCompressor;
 use App\Services\Secrets\Manager;
 use App\Services\Secrets\RandomSlugGenerator;
 use App\Services\Secrets\SecretServiceProvider;
-use Closure;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Routing\Router;
 use Laravel\Octane\Cache\OctaneStore;
 use Mockery;
 use Mockery\MockInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\Unit\TestCase;
 
 class SecretServiceProviderTest extends TestCase
@@ -48,17 +46,19 @@ class SecretServiceProviderTest extends TestCase
 
         $this->assertTrue($this->container->bound(SecretRepository::class));
 
+        $this->mockAs('config', ConfigRepository::class, function (MockInterface $mock) {
+            $mock
+                ->shouldReceive('get')
+                ->with('cache.stores.secrets.limits')
+                ->andReturn([]);
+        });
+
         $this->mockAs('cache', CacheFactory::class, function (MockInterface $mock) {
             $mock
                 ->shouldReceive('store')
                 ->with('secrets')
                 ->once()
-                ->andReturn(Mockery::mock(CacheRepository::class, function (MockInterface $mock) {
-                    $mock
-                        ->shouldReceive('getStore')
-                        ->once()
-                        ->andReturn(Mockery::mock(ArrayStore::class));
-                }));
+                ->andReturn(Mockery::mock(CacheRepository::class));
         });
 
         $repository = $this->container->make(SecretRepository::class);
@@ -67,35 +67,29 @@ class SecretServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_respects_the_octane_cache_limits_for_the_repository()
+    public function it_respects_the_configured_limits_for_the_repository()
     {
         $this->registerServiceProvider(SecretServiceProvider::class);
 
         $this->assertTrue($this->container->bound(SecretRepository::class));
+
+        $this->mockAs('config', ConfigRepository::class, function (MockInterface $mock) {
+            $mock
+                ->shouldReceive('get')
+                ->with('cache.stores.secrets.limits')
+                ->once()
+                ->andReturn([
+                    'count' => 100,
+                    'length' => 200
+                ]);
+        });
 
         $this->mockAs('cache', CacheFactory::class, function (MockInterface $mock) {
             $mock
                 ->shouldReceive('store')
                 ->with('secrets')
                 ->once()
-                ->andReturn(Mockery::mock(CacheRepository::class, function (MockInterface $mock) {
-                    $mock
-                        ->shouldReceive('getStore')
-                        ->once()
-                        ->andReturn(Mockery::mock(OctaneStore::class));
-                }));
-        });
-
-        $this->mockAs('config', ConfigRepository::class, function (MockInterface $mock) {
-            $mock
-                ->shouldReceive('get')
-                ->with('octane.cache.rows')
-                ->andReturn(100);
-
-            $mock
-                ->shouldReceive('get')
-                ->with('octane.cache.bytes')
-                ->andReturn(200);
+                ->andReturn(Mockery::mock(CacheRepository::class));
         });
 
         /** @var SecretRepository */
@@ -151,76 +145,6 @@ class SecretServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_binds_secrets_to_the_router()
-    {
-        $this->registerServiceProvider(SecretServiceProvider::class);
-        $this->mockManagerDependencies();
-
-        $this->container->make(SecretRepository::class)
-            ->shouldReceive('has')
-            ->with('foo')
-            ->once()
-            ->andReturn(true);
-
-        $this->container->singleton('router', function () {
-            return Mockery::mock(Router::class, function (MockInterface $mock) {
-                $mock->callback = null;
-
-                $mock
-                    ->shouldReceive('bind')
-                    ->withArgs(
-                        fn ($a0) => $a0 == 'secret',
-                        fn ($a1) => $a1 instanceof Closure
-                    )
-                    ->andReturnUsing(function ($a0, $a1) use ($mock) {
-                        $mock->callback = $a1;
-                    });
-            });
-        });
-
-        $router = $this->container->make('router');
-
-        $this->assertEquals('foo', ($router->callback)('foo'));
-    }
-
-
-    /** @test */
-    public function it_throws_when_route_bound_secrets_are_not_found()
-    {
-        $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage('Your secret does not exist, or has expired.');
-
-        $this->registerServiceProvider(SecretServiceProvider::class);
-        $this->mockManagerDependencies();
-
-        $this->container->make(SecretRepository::class)
-            ->shouldReceive('has')
-            ->with('foo')
-            ->once()
-            ->andReturn(false);
-
-        $this->container->singleton('router', function () {
-            return Mockery::mock(Router::class, function (MockInterface $mock) {
-                $mock->callback = null;
-
-                $mock
-                    ->shouldReceive('bind')
-                    ->withArgs(
-                        fn ($a0) => $a0 == 'secret',
-                        fn ($a1) => $a1 instanceof Closure
-                    )
-                    ->andReturnUsing(function ($a0, $a1) use ($mock) {
-                        $mock->callback = $a1;
-                    });
-            });
-        });
-
-        $router = $this->container->make('router');
-
-        ($router->callback)('foo');
-    }
-
-    /** @test */
     public function it_provides_deferred_services()
     {
         $provider = $this->newServiceProvider(SecretServiceProvider::class);
@@ -242,5 +166,6 @@ class SecretServiceProviderTest extends TestCase
         $this->mock(SecretKeyGenerator::class);
         $this->mock(SecretRepository::class);
         $this->mock(SecretEncrypter::class);
+        $this->mockAs('events', Dispatcher::class);
     }
 }
