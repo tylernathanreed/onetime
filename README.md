@@ -1,10 +1,21 @@
 <div align="center">
     <a href="https://onetime.tylernathanreed.com" target="_blank">
-        <img src="/docs/logo.png" alt="One Time Secrets"></img>
+        <img alt="One Time Secrets" src="/docs/logo.png"></img>
     </a>
 </div>
 <p align="center">
     <small><i>Create and share one-time secrets.</i></small>
+</p>
+<p align="center">
+    <a href="https://github.com/tylernathanreed/onetime/actions/workflows/static-analysis.yml" target="_blank">
+        <img alt="Static Analysis" src="https://github.com/tylernathanreed/onetime/actions/workflows/static-analysis.yml/badge.svg">
+    </a>
+    <a href="https://github.com/tylernathanreed/onetime/actions/workflows/tests.yml" target="_blank">
+        <img alt="Tests" src="https://github.com/tylernathanreed/onetime/actions/workflows/tests.yml/badge.svg">
+    </a>
+    <a href="https://github.com/tylernathanreed/onetime/actions/workflows/coverage.yml" target="_blank">
+        <img alt="Coverage" src="https://github.com/tylernathanreed/onetime/actions/workflows/coverage.yml/badge.svg">
+    </a>
 </p>
 
 ## About One Time Secrets
