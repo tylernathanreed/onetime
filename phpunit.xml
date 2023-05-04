@@ -21,6 +21,12 @@
     <testsuite name="Feature">
       <directory suffix="Test.php">./tests/Feature</directory>
     </testsuite>
+    <testsuite name="Icons">
+      <directory suffix="Test.php">./packages/icons/tests</directory>
+    </testsuite>
+    <testsuite name="Secrets">
+      <directory suffix="Test.php">./packages/secrets/tests</directory>
+    </testsuite>
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>
@@ -28,6 +34,12 @@
   <source>
     <include>
       <directory suffix=".php">./app</directory>
+      <directory suffix=".php">./packages/icons/src</directory>
+      <directory suffix=".php">./packages/secrets/src</directory>
     </include>
+    <exclude>
+      <directory suffix=".php">./packages/icons/src/Contracts</directory>
+      <directory suffix=".php">./packages/secrets/src/Contracts</directory>
+    </exclude>
   </source>
 </phpunit>

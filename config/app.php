@@ -163,12 +163,18 @@ return [
         ])
 
         /**
+         * Package Service Providers...
+         */
+        ->merge([
+            Reedware\Icons\IconServiceProvider::class,
+            Reedware\Secrets\SecretServiceProvider::class
+        ])
+
+        /**
          * Application Service Providers...
          */
         ->merge([
-            App\Providers\RouteServiceProvider::class,
-            App\Services\Icons\IconServiceProvider::class,
-            App\Services\Secrets\SecretServiceProvider::class
+            App\Providers\RouteServiceProvider::class
         ])->toArray()
 
 ];

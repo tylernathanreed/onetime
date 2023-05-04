@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Secrets\Contracts\SecretManager;
 use Illuminate\Http\Request;
+use Reedware\Secrets\Contracts\SecretManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SecretController extends Controller

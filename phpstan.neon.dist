@@ -3,6 +3,7 @@ parameters:
     - app
     - bootstrap
     - config
+    - packages
     - resources
     - routes
     - tests

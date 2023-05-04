@@ -26,12 +26,16 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Reedware\\Icons\\": "packages/icons/src/",
+            "Reedware\\Secrets\\": "packages/secrets/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Reedware\\Icons\\Tests\\": "packages/secrets/tests/",
+            "Reedware\\Secrets\\Tests\\": "packages/secrets/tests/"
         }
     },
     "scripts": {

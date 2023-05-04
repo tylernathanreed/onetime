@@ -1,0 +1,38 @@
+<?php
+
+namespace Reedware\Secrets\Tests;
+
+use Reedware\Secrets\GzCompressor;
+
+class GzCompressorTest extends TestCase
+{
+    /** @test */
+    public function it_compresses_using_gzcompress()
+    {
+        $compressor = $this->newCompressor();
+
+        $expected = gzcompress('foo');
+        $actual = $compressor->compress('foo');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /** @test */
+    public function it_decompresses_using_gzuncompress()
+    {
+        $compressor = $this->newCompressor();
+
+        $expected = 'foo';
+        $actual = $compressor->decompress(gzcompress('foo'));
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Creates and returns a new compressor for testing.
+     */
+    protected function newCompressor(): GzCompressor
+    {
+        return new GzCompressor;
+    }
+}

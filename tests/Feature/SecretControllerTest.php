@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Services\Secrets\Contracts\SecretManager;
-use App\Services\Secrets\Events\SecretCreated;
-use App\Services\Secrets\Events\SecretDestroyed;
-use App\Services\Secrets\Events\SecretRetrieved;
 use Illuminate\Support\Facades\Event;
+use Reedware\Secrets\Contracts\SecretManager;
+use Reedware\Secrets\Events\SecretCreated;
+use Reedware\Secrets\Events\SecretDestroyed;
+use Reedware\Secrets\Events\SecretRetrieved;
 
 class SecretControllerTest extends TestCase
 {
