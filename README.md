@@ -7,6 +7,9 @@
     <small><i>Create and share one-time secrets.</i></small>
 </p>
 <p align="center">
+    <a href="https://github.com/tylernathanreed/onetime/actions/workflows/style.yml" target="_blank">
+        <img alt="Style" src="https://github.com/tylernathanreed/onetime/actions/workflows/style.yml/badge.svg">
+    </a>
     <a href="https://github.com/tylernathanreed/onetime/actions/workflows/static-analysis.yml" target="_blank">
         <img alt="Static Analysis" src="https://github.com/tylernathanreed/onetime/actions/workflows/static-analysis.yml/badge.svg">
     </a>
