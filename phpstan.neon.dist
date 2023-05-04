@@ -1,0 +1,10 @@
+parameters:
+  paths:
+    - app
+    - bootstrap
+    - config
+    - resources
+    - routes
+    - tests
+
+  level: 0
