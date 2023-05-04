@@ -1,4 +1,4 @@
-name: coverage
+name: style
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: PHP Code Coverage
+    name: Style Check
 
     steps:
       - name: Checkout code
@@ -22,7 +22,7 @@ jobs:
         with:
           php-version: 8.2
           tools: composer:v2
-          coverage: xdebug
+          coverage: none
 
       - name: Install dependencies
         uses: nick-invision/retry@v2
@@ -31,5 +31,5 @@ jobs:
           max_attempts: 2
           command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
 
-      - name: Execute coverage
-        run: php artisan test --compact --coverage --min=100
+      - name: Run PHPCS
+        run: vendor/bin/pint
